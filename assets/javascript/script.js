@@ -1,4 +1,6 @@
-  // Initialize Firebase
+function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+ 
+ // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDgcbe1F3XQc08C0CeyHnIfkJEpM6wn7nM",
     authDomain: "project1-4a6c1.firebaseapp.com",
@@ -39,7 +41,7 @@ $(function() {
       console.log(snapshot.val());
 
       // Then we change the html associated with the number.
-      $(".clicks").text(snapshot.val().clickCount);
+      $("#clicks").text(snapshot.val().clickCount);
 
       // Then update the clickCounter variable with data from the database.
       clickCounter = snapshot.val().clickCount;
@@ -63,13 +65,15 @@ $(function() {
        });
        //execute the request
        request.execute(function(response) {
-         //  var results = response.results;
-           //$.each(results.items, function(index, item) {
-             //  $("#youtube").append(items.id.videoId+" "+item.snippet.title+ "<br>");
-           //});
-        
-            console.log(response);
-       });
+           var results = response.result;
+           $.each(results.items, function(index, item) {
+                $.get("item.html", function(data) {
+                    $("#youtube").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+                });   
+                console.log(results)
+                //$("#youtube").append(item.id.videoId+" "+item.snippet.title+ "<br>");
+           });
+        });
 
        var store = "Mcdonalds"
 
