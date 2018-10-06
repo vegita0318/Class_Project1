@@ -1,18 +1,97 @@
-function onClientLoad() {
-    gapi.client.load ("youtube", "v3", onYouTubeApiLoad);
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDgcbe1F3XQc08C0CeyHnIfkJEpM6wn7nM",
+    authDomain: "project1-4a6c1.firebaseapp.com",
+    databaseURL: "https://project1-4a6c1.firebaseio.com",
+    projectId: "project1-4a6c1",
+    storageBucket: "project1-4a6c1.appspot.com",
+    messagingSenderId: "115161899919"
+  };
+  firebase.initializeApp(config);
 
-function onYouTubeApiLoad() {
-    gapi.client.setApiKey(AIzaSyAPms7c3DCkEBQP8sJwp4vpCBPoV61oQTc);
+  // Get a reference to the database service
+  var database = firebase.database();
 
-    function search() {
-        var query = document.getElementById('query').value;
-        var request = gapi.client.youtube.search.list ({
-            part: 'snippet',
-            q:query,
-        });
-        request.execute(onSearchResponse);
-    }
-function onSearchResponse(response) {
-    var responseString = JSON.stringify(response, '', 3);
-    document.getElementById('response').innerHTML = responseString;
+  // Setting initial value of our click counter variable to 0
+  var clickCounter = 0;
+
+$(function() {
+    $("form").on("submit", function(e) {
+       e.preventDefault();
+       // Add to clickCounter
+      clickCounter++;
+
+      //  Store Click Data to Firebase in a JSON property called clickCount
+      // Note how we are using the Firebase .set() method
+      database.ref().set({
+        clickCount: clickCounter
+      });
+
+    // MAIN PROCESS + INITIAL CODE
+    // --------------------------------------------------------------------------------
+
+    // Using .on("value", function(snapshot)) syntax will retrieve the data
+    // from the database (both initially and every time something changes)
+    // This will then store the data inside the variable "snapshot". We could rename "snapshot" to anything.
+    database.ref().on("value", function(snapshot) {
+
+      // Then we console.log the value of snapshot
+      console.log(snapshot.val());
+
+      // Then we change the html associated with the number.
+      $(".clicks").text(snapshot.val().clickCount);
+
+      // Then update the clickCounter variable with data from the database.
+      clickCounter = snapshot.val().clickCount;
+
+      // If there is an error that Firebase runs into -- it will be stored in the "errorObject"
+      // Again we could have named errorObject anything we wanted.
+    }, function(errorObject) {
+
+      // In case of error this will print the error
+      console.log("The read failed: " + errorObject.code);
+    
+    });
+       //prepare the request
+       var request = gapi.client.youtube.search.list({
+           part: "snippet",
+           type: "video",
+           q: encodeURIComponent($("#hobbySearch").val()).replace(/%20/g, "+"),
+           maxResults: 3,
+           order: "viewCount",
+           publishedAfter: "2005-01-01T00:00:00Z"
+       });
+       //execute the request
+       request.execute(function(response) {
+         //  var results = response.results;
+           //$.each(results.items, function(index, item) {
+             //  $("#youtube").append(items.id.videoId+" "+item.snippet.title+ "<br>");
+           //});
+        
+            console.log(response);
+       });
+
+       var store = "Mcdonalds"
+
+       var settings = {
+        async: true,
+        crossDomain: true,
+        url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=' + store + '&location=atlanta',
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer x0DthcS8vY40RH1ub7L304JcXg93fjOKvrR5g2UTfto-iAodtfYFt5wN43sWmC_z23Gg-PcBHld_XSNiR3mNwWK8xSqL2xXRoi_XDMsHA92Zj8-SougcpgkpE0SxW3Yx',
+        },
+       };
+       
+       $.ajax(settings).done(function (response) {
+        console.log(response);
+       });
+    });
+});
+
+function init() {
+    gapi.client.setApiKey("AIzaSyClSWv2vBYGa6jSVl0ntBwpxJ6M1bK1TVo")
+    gapi.client.load("youtube", "v3", function() {
+        //youtube API is ready
+    })
 }
