@@ -46,3 +46,20 @@ footer {
 #clicks {
     text-align: center;
 }
+
+#youtube {
+    border-style: solid;
+    border-color: lightgray;
+    padding: 50px;
+    color: lightgray;
+    text-align: center;
+}
+
+.yelp {
+    border-style: solid;
+    border-color: lightgray;
+    padding: 50px;
+    color: lightgray;
+    text-align: center;
+    
+}

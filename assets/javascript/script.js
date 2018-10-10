@@ -68,27 +68,72 @@ $(function() {
            var results = response.result;
            $.each(results.items, function(index, item) {
                 $.get("item.html", function(data) {
-                    $("#youtube").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+                    $("#youtube").append(tplawesome(data, [{"title":item.snippet.title, "videoId":item.id.videoId}]));
                 });   
                 console.log(results)
                 //$("#youtube").append(item.id.videoId+" "+item.snippet.title+ "<br>");
            });
         });
 
-       var store = "Mcdonalds"
+        var store = $('#storeSearch').val();
+        var location = $('#locationSearch').val();
 
-       var settings = {
-        async: true,
-        crossDomain: true,
-        url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=' + store + '&location=atlanta',
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer x0DthcS8vY40RH1ub7L304JcXg93fjOKvrR5g2UTfto-iAodtfYFt5wN43sWmC_z23Gg-PcBHld_XSNiR3mNwWK8xSqL2xXRoi_XDMsHA92Zj8-SougcpgkpE0SxW3Yx',
-        },
-       };
-       
-       $.ajax(settings).done(function (response) {
-        console.log(response);
+        var settings = {
+          async: true,
+          crossDomain: true,
+          url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=' + store + '&location=' + location + '&limit=3',
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer x0DthcS8vY40RH1ub7L304JcXg93fjOKvrR5g2UTfto-iAodtfYFt5wN43sWmC_z23Gg-PcBHld_XSNiR3mNwWK8xSqL2xXRoi_XDMsHA92Zj8-SougcpgkpE0SxW3Yx',
+          },
+        };
+  
+        $.ajax(settings).done(function (response) {
+  
+          
+          var yelpDiv = $('.yelp');
+  
+          // Storing the rating data
+          var name = response.businesses[0].name;
+  
+          // Creating an element to have the rating displayed
+          var pOne = $('<p>').text('Business Name: ' + name);
+  
+          // Displaying the rating
+          yelpDiv.append(pOne);
+  
+          // Storing the release year
+          var location = response.businesses[0].location.address1;
+  
+          // Creating an element to hold the release year
+          var pTwo = $('<p>').text('Business Address: ' + location);
+  
+          // Displaying the release year
+          yelpDiv.append(pTwo);
+  
+          // Storing the plot
+          var phone1 = response.businesses[0].phone;
+  
+          // Creating an element to hold the plot
+          var pThree = $('<p>').text('Business Phone: ' + phone1);
+  
+          yelpDiv.append(pThree);
+  
+          var ratings1 = response.businesses[0].rating;
+  
+          var pFour = $('<p>').text('Business Rating: ' + ratings1);
+  
+          yelpDiv.append(pFour);
+  
+  
+  
+  
+  
+          //$('.yelp').text('Business Name: ' + response.businesses[0].name);
+          //$('.yelp').text('Buusiness Address: ' + response.businesses[0].location);
+          //$('.yelp').text('Business Phone: ' + response.businesses[0].phone);
+          //$('.yelp').text('Business Ratings: ' + response.businesses[0].rating);
+          console.log(response);
        });
     });
 });
