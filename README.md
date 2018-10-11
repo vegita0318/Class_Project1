@@ -1,11 +1,11 @@
 # Class_Project1
 
-Project Title: Computer Karaoke
+Project Title: Hobby helper
 Team Members: Shevin W, Larry Fuller, and Garrion Martin
-Project Description: Requesting a user to enter the song title and having the computer recite the lyrics with the selected voice processor.
+Created an application that allows users to search for a hobby, see youtube video results, and stores that sell materials needed to complete at home projects. 
 Sketch of Final Project: 
-APIs to be Used: Genius Lyric API and IBM Watson text to speech
+APIs to be Used: Youtube api & Yelp! api
 Rough Breakdown of Tasks: 
-Larry  –  authentication and implementation of Genius Lyric API
-Garrion –  authentication and implementation of IBM Watson
-Shevin – framework and UI design
+Larry  –  authentication and implementation of Youtube API
+Garrion –  authentication and implementation of yelp! api
+Shevin – framework and UI design/ firebase
