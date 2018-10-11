@@ -41,7 +41,7 @@ $(function() {
       console.log(snapshot.val());
 
       // Then we change the html associated with the number.
-      $("#clicks").text(snapshot.val().clickCount);
+      $("#clicks").text("Hobbies Searched: " + snapshot.val().clickCount);
 
       // Then update the clickCounter variable with data from the database.
       clickCounter = snapshot.val().clickCount;

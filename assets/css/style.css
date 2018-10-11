@@ -16,8 +16,20 @@
 
   body {
       background-color: white;
+      background-image: url("3.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: 100%;
   }
 
+  #resultContainer {
+      background-image: url("1.png");
+  }
+
+  #resultContainer2 {
+      background-image: url("1.png");
+  }
 
 .jumbotron {
     background-image: url("hobby.png");
@@ -45,21 +57,30 @@ footer {
 
 #clicks {
     text-align: center;
+    color: white;
 }
 
 #youtube {
     border-style: solid;
     border-color: lightgray;
-    padding: 50px;
+    padding: 30px;
     color: lightgray;
     text-align: center;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 4px #888888;
 }
 
 .yelp {
-    border-style: solid;
+    border: 1px solid;
     border-color: lightgray;
-    padding: 50px;
+    padding: 30px;
     color: lightgray;
     text-align: center;
+    box-shadow: 5px 10px 4px #888888;
     
+}
+
+#hobbySearch, #locationSearch, #storeSearch {
+    color: #b35900;
 }
